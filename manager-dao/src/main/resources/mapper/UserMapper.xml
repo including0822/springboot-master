@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.thisy.dao.user.UserDao" >
+  <resultMap id="BaseResultMap" type="com.thisy.entity.user.User" >
+    <id column="db_id" property="dbId" jdbcType="INTEGER" />
+    <result column="plat_id" property="platId" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
+    <result column="icon_id" property="iconId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="user_from" property="userFrom" jdbcType="INTEGER" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    db_id, plat_id, phone, name, username, password, wechat_id, icon_id, create_user, 
+    create_time, update_user, update_time, del_flag, user_from, email,state
+  </sql>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from u_user
+    where db_id = #{dbId,jdbcType=INTEGER} and state = 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from u_user
+    where db_id = #{dbId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertAll" parameterType="com.thisy.entity.user.User" >
+    insert into u_user (db_id, plat_id, phone, 
+      name, username, password, 
+      wechat_id, icon_id, create_user, 
+      create_time, update_user, update_time, 
+      del_flag, user_from, email
+      )
+    values (#{dbId,jdbcType=INTEGER}, #{platId,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{wechatId,jdbcType=VARCHAR}, #{iconId,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{delFlag,jdbcType=INTEGER}, #{userFrom,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insert" parameterType="com.thisy.entity.user.User" >
+    insert into u_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dbId != null" >
+        db_id,
+      </if>
+      <if test="platId != null" >
+        plat_id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="wechatId != null" >
+        wechat_id,
+      </if>
+      <if test="iconId != null" >
+        icon_id,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateUser != null" >
+        update_user,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="userFrom != null" >
+        user_from,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dbId != null" >
+        #{dbId,jdbcType=INTEGER},
+      </if>
+      <if test="platId != null" >
+        #{platId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null" >
+        #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="iconId != null" >
+        #{iconId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="userFrom != null" >
+        #{userFrom,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateById" parameterType="com.thisy.entity.user.User" >
+    update u_user
+    <set >
+      <if test="platId != null" >
+        plat_id = #{platId,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null" >
+        wechat_id = #{wechatId,jdbcType=VARCHAR},
+      </if>
+      <if test="iconId != null" >
+        icon_id = #{iconId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=INTEGER},
+      </if>
+      <if test="userFrom != null" >
+        user_from = #{userFrom,jdbcType=INTEGER},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where db_id = #{dbId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.thisy.entity.user.User" >
+    update u_user
+    set plat_id = #{platId,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      wechat_id = #{wechatId,jdbcType=VARCHAR},
+      icon_id = #{iconId,jdbcType=VARCHAR},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=INTEGER},
+      user_from = #{userFrom,jdbcType=INTEGER},
+      email = #{email,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER}
+    where db_id = #{dbId,jdbcType=INTEGER}
+  </update>
+
+
+
+    <select id="select" resultMap="BaseResultMap" parameterType="com.thisy.entity.user.User" >
+        select
+        <include refid="Base_Column_List" />
+        from u_user
+        where del_flag=1
+        <if test="dbId != null and dbId != '' " >
+            and DB_ID = #{dbId,jdbcType=VARCHAR}
+        </if>
+        <if test="platId != null and platId != '' " >
+            and plat_id = #{platId,jdbcType=VARCHAR}
+        </if>
+        <if test="username != null and username != '' " >
+            and USERNAME like CONCAT('%',CONCAT(#{username,jdbcType=VARCHAR},'%')) 
+        </if>
+        <if test="name != null and name != '' " >
+            and USERNAME like CONCAT('%',CONCAT(#{name,jdbcType=VARCHAR},'%')) 
+        </if>
+        <if test="phone != null and phone != '' " >
+            and phone = #{phone,jdbcType=VARCHAR}
+        </if>
+        <if test="userFrom != null" >
+            and USER_FROM = #{userFrom,jdbcType=INTEGER}
+        </if>
+        <if test="state != null " >
+            and state = #{state,jdbcType=INTEGER}
+        </if>
+        <if test="createTimeStart !=null and createTimeStart !=''">
+        	and CREATE_TIME &gt; #{createTimeStart,jdbcType=TIMESTAMP}
+        </if>
+        <if test="createTimeEnd !=null and createTimeEnd !=''">
+        	and CREATE_TIME &lt; #{createTimeEnd,jdbcType=TIMESTAMP}
+        </if>
+    </select>
+
+  <select id="selectList" resultMap="BaseResultMap" parameterType="com.thisy.entity.user.User" >
+    select
+    <include refid="Base_Column_List" />
+    from u_user
+    where del_flag=1
+    <if test="list !=null and list.size()>0">
+      and db_id exists
+      <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+    </if>
+  </select>
+
+
+</mapper>
